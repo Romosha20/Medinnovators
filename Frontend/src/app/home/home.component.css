@@ -1,0 +1,289 @@
+.jumbotron {
+    padding:0.2rem 1rem 7px 0px;
+}
+
+.example-section {
+    margin: 12px 0;
+  }
+  
+  .example-margin {
+    margin: 0 12px;
+  }
+
+  .mat-checkbox-inner-container {
+    outline: 2px solid #c00 !important;
+    background-color: yellowgreen !important;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+
+
+  html, body {
+    background: #efefef;      
+    height:100%;  
+  }
+  #center-text {          
+    display: flex;
+    flex: 1;
+    flex-direction:column; 
+    justify-content: center;
+    align-items: center;  
+    height:100%;
+    
+  }
+
+  
+  .chat-pop-up {
+    background:center 35% no-repeat, linear-gradient(#088c93 36%, #FFFFFF 36%);
+    background-size: contain;
+    border-radius: 6px;
+    bottom: 75px;
+    box-shadow: 0 3px 6px 0 rgba(75, 74, 75, 0.2);
+    opacity: 0;
+    right: 55px;
+    padding: 34px;
+    position: fixed;
+    transform: translatey(20px);
+    transition: opacity 0.25s ease, transform 0.25s ease-out;
+    width: 600px;
+    height: 450px;
+    z-index: 100;
+    overflow-y: scroll;
+    border-color: #363636;
+
+  }
+  
+  .chat-pop-up--heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .chat-pop-up--heading h3 {
+    color: #274666;
+    font-family: "Galano Grotesque Alt", "Open Sans", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 44px;
+    margin: 10px 0 0;
+  }
+  
+  .chat-pop-up--heading h3 span {
+    display: block;
+  }
+  
+  .chat-pop-up--heading figure {
+    margin: 0;
+  }
+  
+  .chat-pop-up h4 {
+    color: #4A4A4A;
+    font-family: "Galano Grotesque Alt", "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    margin: 20px 0;
+  }
+  
+  .chat-pop-up a {
+    background: #FF6B17;
+    border-radius: 6px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Galano Grotesque Alt", "Open Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    max-width: 225px;
+    padding: 12px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  
+  .chat-pop-up a:hover, 
+  a:active {
+    background: #FF8D4E;
+  }
+  
+  .chat-pop-up a span {
+    margin-right: 8px;
+  }
+  
+  .toggle-chat {
+    background:  #FBCE3B;
+    border-radius: 30px;
+    border-style: none;
+    box-shadow: 0 3px 6px 0 rgba(75, 74, 75, 0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 60px;
+    bottom: 9px;
+    right: 55px;
+    padding: 10px;
+    transition: width 0.3s ease-in-out, background 0.2s ease;
+    outline: none;
+    width: 180px;
+    z-index: 100;
+  }
+  
+  .toggle-chat:hover, 
+  .toggle-chat:active {
+    background: #FFD95D;
+  }
+  
+  .toggle-chat.chat-is-open {
+    flex-direction: column;
+    width: 60px;
+  }
+  
+  .open-chat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #274666;
+    font-family: "Galano Grotesque Alt", "Open Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 27px;
+    opacity: 1;
+    transition: opacity 0.2s 0.2s ease-out;
+    margin-top: 3px;
+    width: 144px;
+    height: 250px;
+  }
+  
+  .toggle-chat.chat-is-open .open-chat {
+    transition: none;
+    opacity: 0;
+  }
+  
+  .toggle-chat .close-chat {
+    margin-top: 2px;
+    opacity: 0;
+    transform: rotate(-40deg);
+  }
+  
+  .toggle-chat.chat-is-open .close-chat {
+    margin-top: 58px;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: opacity 0.2s ease-out, transform 0.4s ease-out;
+  }
+  
+  .chat-display-on {
+    display: block !important;
+  }
+  
+  .chat-visible {
+    opacity: 1;
+    transform: translatey(0);
+  }
+
+  .message {
+    border-radius: 50px;
+    margin: 0 15px 20px;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 15px;
+  }
+  .message.to {
+    background-color: #2095FE;
+    color: #fff;
+    margin-left: 100px;
+    text-align: right;
+  }
+  .message.from {
+    background-color: #E5E4E9;
+    color: #363636;
+    margin-right: 100px;
+  }
+  .message.to + .message.to,
+  .message.from + .message.from {
+    margin-top: -10px;
+}
+
+
+#list1 {
+  overflow-y: scroll;
+  /*  Setting overflow-y does the trick here, since the scrollbar is native
+  to the unordered list only -- as you will see below */
+  height: 300px;
+  /*  Based on the fiddle, this height determines the state of the scrollbar  */
+}
+
+/* Increasing specifity(using #list1), ensures the scrollbar sytling affects
+the area within the #list1 only making it native to those elements only */
+/* It would still work either way but its best to contain it for the specific element */
+#list1::-webkit-scrollbar-track {
+  background-color: steelblue;
+  width: 30px;
+}
+
+#list1::-webkit-scrollbar {
+  width: 30px;
+  background-color: green;
+}
+
+#list1::-webkit-scrollbar-thumb {
+  background-color: red;
+  height: 30px;
+}
+
+/* CSS */
+.button-25 {
+  background-color: #36A9AE;
+  background-image: linear-gradient(#37ADB2, #329CA0);
+  border: 1px solid #2A8387;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: block;
+  font-family: -apple-system,".SFNSDisplay-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 17px;
+  line-height: 100%;
+  margin: 0;
+  outline: 0;
+;
+  padding: 11px 15px 12px;
+  text-align: center;
+  transition: box-shadow .05s ease-in-out,opacity .05s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 25%;
+}
+
+.button-25:hover {
+  box-shadow: rgba(255, 255, 255, 0.3) 0 0 2px inset, rgba(0, 0, 0, 0.4) 0 1px 2px;
+  text-decoration: none;
+  transition-duration: .15s, .15s;
+}
+
+.button-25:active {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 4px inset, rgba(0, 0, 0, 0.4) 0 1px 1px;
+}
+
+.button-25:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.button-25:disabled:active {
+  pointer-events: none;
+}
+
+.button-25:disabled:hover {
+  box-shadow: none;
+}
+

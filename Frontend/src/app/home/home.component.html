@@ -1,0 +1,223 @@
+<div class="container" style="    
+background-image: url(../../assets/home.webp);
+background-position: bottom;
+background-repeat: no-repeat;
+background-size: cover;
+">
+  <header class="jumbotron">
+    <h1 style="text-align:center"> Medication Info</h1>
+  </header>
+  <div class="col-md-12">
+    <div class="card card-container">
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="patientName">Patient Name</label>
+          <input matInput type="text" class="form-control" name="patientName" [(ngModel)]="form.patientName" required
+            #patientName="ngModel" />
+          <div class="alert alert-danger" role="alert" *ngIf="patientName.errors && f.submitted">
+            Patient Name is required!
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="medicine">Medicine Name</label>
+          <input matInput type="text" class="form-control" name="medicine" [(ngModel)]="form.medicine" required
+            #medicine="ngModel" />
+          <div class="alert alert-danger" role="alert" *ngIf="medicine.errors && f.submitted">
+            medicine is required!
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dosage">Dosage</label>
+          <ng-multiselect-dropdown [placeholder]="'Select Dosage times'" [settings]="dropdownSettings"
+            [data]="dropdownList" [(ngModel)]="form.dosage" required #dosage="ngModel"
+            [ngModelOptions]="{standalone: true}">
+          </ng-multiselect-dropdown>
+          <div class="alert alert-danger" role="alert" *ngIf="dosage.errors && f.submitted">
+            <div *ngIf="dosage.errors['required']">Dosage is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fromDate">From Date</label>
+          <input type="date" class="form-control" name="fromDate" [(ngModel)]="form.fromDate" required minlength="6"
+            #fromDate="ngModel" style="width: auto;" />
+          <div class="alert alert-danger" role="alert" *ngIf="fromDate.errors && f.submitted">
+            <div *ngIf="fromDate.errors['required']">From Date is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="toDate">To Date</label>
+          <input type="date" class="form-control" name="toDate" [(ngModel)]="form.toDate" required minlength="6"
+            #toDate="ngModel" style="width: auto;" />
+          <div class="alert alert-danger" role="alert" *ngIf="toDate.errors && f.submitted">
+            <div *ngIf="toDate.errors['required']">To Date is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="nextDisabled" class="btn btn-primary btn-block">
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="symptomsChecker" class="col-md-12">
+    <header class="jumbotron">
+      <h1 style="text-align:center"> Symptoms Checker</h1>
+    </header>
+    <div class="card card-container" style="    padding: 21px;">
+      <form name="form" (ngSubmit)="sym.form.valid && onSubmitSymptoms()" #sym="ngForm" novalidate>
+        <section class="example-section">
+          <li *ngFor="let symptom of symptomsQues">
+            <mat-checkbox (change)="onChange($event,symptom)">
+              {{symptom.symptoms }}
+            </mat-checkbox>
+          </li>
+        </section>
+        <div class="form-group">
+          <button [disabled]="processDisabled" class="btn btn-primary btn-block">
+            Process & Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="riskSheet" lass="col-md-12">
+    <header class="jumbotron">
+      <h1 style="text-align:center"> Risk Factor</h1>
+    </header>
+    <div class="card card-container" style="    padding: 21px;">
+      <label for="symptoms" style="color: green;">Your health is at Low risk at Average of {{ lowRisk }}%</label>
+      <label for="symptoms" style="color: rgb(148, 129, 21);">Your health is at Medium risk at Average of {{ mediumRisk
+        }}%</label>
+      <label for="symptoms" style="color: red;">Your health is at High risk at Average of {{ highRisk }}%</label>
+
+    </div>
+  </div>
+
+
+  <div class="center">
+    <button style="width: auto;" class="btn btn-primary btn-block" (click)="print()">
+      Print</button>
+
+
+  </div>
+</div>
+
+
+
+ <div class="chat-pop-up chat-display-on ">
+  <div class="chat-pop-up--heading">
+    <h1 style="font-weight: bold;
+    color: aliceblue;"> MEDICATION BOT</h1>
+  </div>
+
+  <div id="list1">
+    <ng-container *ngFor="let message of messages">
+      <div class="message" [ngClass]="{from: message.author === 'bot',to: message.author === 'user'}">
+        {{ message.content }}
+      </div>
+    </ng-container>
+
+    <div  *ngIf="botDosage" style="height: 200px !important;">
+      <ng-multiselect-dropdown [placeholder]="'Select Dosage times and press enter'" [settings]="dropdownSettings"
+        [data]="dropdownList" [(ngModel)]="form.dosage" required #dosage="ngModel"
+        [ngModelOptions]="{standalone: true}">
+      </ng-multiselect-dropdown>
+      <div class="alert alert-danger" role="alert" *ngIf="dosage.errors && f.submitted">
+        <div *ngIf="dosage.errors['required']">Dosage is required</div>
+      </div>
+    </div>
+
+    <div *ngIf="botFromDate" style="height: 200px !important;">
+      <label for="fromDate">From Date</label>
+      <input type="date" class="form-control" name="fromDate" [(ngModel)]="form.fromDate" required minlength="6"
+        #fromDate="ngModel" style="width: auto;height: auto;" />
+      <div class="alert alert-danger" role="alert" *ngIf="fromDate.errors && f.submitted">
+        <div *ngIf="fromDate.errors['required']">From Date is required</div>
+      </div>
+    </div>
+    <div *ngIf="botToDate" style="height: 200px !important;">
+      <label for="toDate">To Date</label>
+      <input type="date" class="form-control" name="toDate" [(ngModel)]="form.toDate" required minlength="6"
+        #toDate="ngModel" style="width: auto;height: auto;" />
+      <div class="alert alert-danger" role="alert" *ngIf="toDate.errors && f.submitted">
+        <div *ngIf="toDate.errors['required']">To Date is required</div>
+      </div>
+    </div>
+
+    <div *ngIf="botSymptoms">
+      <section class="example-section">
+        <li *ngFor="let symptom of symptomsQues">
+          <mat-checkbox (change)="onChange($event,symptom)">
+            {{symptom.symptoms }}
+          </mat-checkbox>
+        </li>
+      </section>
+    </div>
+
+  </div>
+
+<div style="position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 34px;
+  display: flex;"
+   >
+  <input [(ngModel)]="value" style="  width:60%;padding:10px;
+  border-radius:10px;" (keyup.enter)="sendMessage()" type="text" />
+  <button (click)="sendMessage()" class="button-25" role="button">Send</button>
+</div> 
+
+
+</div>
+
+
+
+
+
+
+<button class="toggle-chat ">
+  <svg class="close-chat" width="20px" height="20px" viewBox="0 0 20 20" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g id="chat_option_01" transform="translate(-266.000000, -579.000000)" fill="#274666" fill-rule="nonzero">
+        <g id="button_chat-close_static" transform="translate(246.000000, 559.000000)">
+          <g id="Group-4" transform="translate(20.000000, 20.000000)">
+            <path
+              d="M6.18869049,10 L0.789348044,4.60065755 C-0.263116015,3.54819349 -0.263116015,1.8418121 0.789348044,0.789348044 C1.8418121,-0.263116015 3.54819349,-0.263116015 4.60065755,0.789348044 L10,6.18869049 L15.3993425,0.789348044 C16.4518065,-0.263116015 18.1581879,-0.263116015 19.210652,0.789348044 C20.263116,1.8418121 20.263116,3.54819349 19.210652,4.60065755 L13.8113095,10 L19.210652,15.3993425 C20.263116,16.4518065 20.263116,18.1581879 19.210652,19.210652 C18.1581879,20.263116 16.4518065,20.263116 15.3993425,19.210652 L10,13.8113095 L4.60065755,19.210652 C3.54819349,20.263116 1.8418121,20.263116 0.789348044,19.210652 C-0.263116015,18.1581879 -0.263116015,16.4518065 0.789348044,15.3993425 L6.18869049,10 Z"
+              id="Combined-Shape"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <span class="open-chat">
+    <svg width="33px" height="37px" viewBox="0 0 33 37" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="chat_option_01" transform="translate(-59.000000, -572.000000)">
+          <g id="button_chat_static" transform="translate(46.000000, 559.000000)">
+            <g id="icon_chat" transform="translate(13.000000, 13.000000)">
+              <path
+                d="M11.3908465,32.1937452 C12.3733449,33.8267185 14.076396,35.4288034 16.5,37 C5.95869323,35.1320625 0.468256843,28.6257901 0.0286908382,17.481183 C0.00965275619,17.1565548 0,16.8294047 0,16.5 C0,16.4339782 0.000387763357,16.3680469 0.00116113687,16.3022084 C0.000387045622,16.2018277 -1.24344979e-14,16.1010916 -1.24344979e-14,16 L0.00728022691,16.0050958 C0.268977109,7.12133202 7.55285045,0 16.5,0 C25.6126984,0 33,7.38730163 33,16.5 C33,25.6126984 25.6126984,33 16.5,33 C14.7167319,33 12.9995375,32.7171051 11.3908465,32.1937452 Z"
+                id="Combined-Shape-Copy" fill="#274666"></path>
+              <g id="Group" transform="translate(7.000000, 15.000000)" fill="#FFFFFF">
+                <circle id="Oval" cx="2" cy="2" r="2"></circle>
+                <circle id="Oval" cx="9" cy="2" r="2"></circle>
+                <circle id="Oval" cx="16" cy="2" r="2"></circle>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    Let's chat!
+
+  </span>
+</button>
